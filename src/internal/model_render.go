@@ -2,6 +2,7 @@ package internal
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"image"
 	"os"
@@ -647,14 +648,18 @@ func (m model) filePreviewPanelRender() string {
 			return box.Render("\n --- Preview panel is closed ---")
 		}
 		// Try to render image with chafa.
-		if m.fileModel.filePreview.chafaPreview != nil {
-			m.fileModel.filePreview.chafaPreview.Kill()
-		}
-		chafaCmd := exec.Command("chafa", itemPath)
-		err := chafaCmd.Start()
+		chafaCmd := exec.Command(
+			"chafa",
+			"--size="+strconv.Itoa(m.fileModel.filePreview.width)+"x"+strconv.Itoa(previewLine),
+			"--animate=off",
+			"--relative=off",
+			itemPath,
+		)
+		var chafaBuf bytes.Buffer
+		chafaCmd.Stdout = &chafaBuf
+		err := chafaCmd.Run()
 		if err == nil {
-			m.fileModel.filePreview.chafaPreview = chafaCmd.Process
-			return ""
+			return box.AlignVertical(lipgloss.Center).AlignHorizontal(lipgloss.Left).Render(chafaBuf.String())
 		}
 		// Chafa not found, fallback to old image preview implementation.
 		ansiRender, err := filepreview.ImagePreview(itemPath, m.fileModel.filePreview.width, previewLine, theme.FilePanelBG)

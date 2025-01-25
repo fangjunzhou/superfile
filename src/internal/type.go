@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"os"
 	"time"
 
 	"github.com/charmbracelet/bubbles/progress"
@@ -152,9 +151,8 @@ type fileModel struct {
 }
 
 type filePreviewPanel struct {
-	open         bool
-	width        int
-	chafaPreview *os.Process
+	open  bool
+	width int
 }
 
 // Panel representing a file

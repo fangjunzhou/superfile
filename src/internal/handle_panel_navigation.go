@@ -125,8 +125,6 @@ func (m *model) toggleFilePreviewPanel() {
 		} else {
 			m.fileModel.filePreview.width = (m.fullWidth - Config.SidebarWidth) / Config.FilePreviewWidth
 		}
-	} else {
-		m.fileModel.filePreview.chafaPreview.Kill()
 	}
 
 	m.fileModel.width = (m.fullWidth - Config.SidebarWidth - m.fileModel.filePreview.width - (4 + (len(m.fileModel.filePanels)-1)*2)) / len(m.fileModel.filePanels)

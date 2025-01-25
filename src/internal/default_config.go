@@ -45,8 +45,7 @@ func defaultModelConfig(toggleDotFileBool bool, toggleFooter bool, firstFilePane
 				},
 			},
 			filePreview: filePreviewPanel{
-				open:         Config.DefaultOpenFilePreview,
-				chafaPreview: nil,
+				open: Config.DefaultOpenFilePreview,
 			},
 			width: 10,
 		},
