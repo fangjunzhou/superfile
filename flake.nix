@@ -56,6 +56,9 @@
               nix
               gomod2nix
               nixpkgs-fmt
+              ## 3rd party
+              # terminal graphics
+              chafa
             ];
           };
         };
